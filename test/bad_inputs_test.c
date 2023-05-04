@@ -39,7 +39,7 @@ static void test_3(void **_CBOR_UNUSED(_state)) {
   assert_size_equal(res.error.position, 1);
 }
 
-#ifdef SANE_MALLOC
+#ifdef CBOR_SANE_MALLOC
 unsigned char data4[] = {0xBA, 0xC1, 0xE8, 0x3E, 0xE7, 0x20, 0xA8};
 static void test_4(void **_CBOR_UNUSED(_state)) {
   item = cbor_load(data4, 7, &res);
@@ -103,7 +103,7 @@ int main(void) {
   const struct CMUnitTest tests[] = {
       cmocka_unit_test(test_1), cmocka_unit_test(test_2),
       cmocka_unit_test(test_3),
-#ifdef SANE_MALLOC
+#ifdef CBOR_SANE_MALLOC
       cmocka_unit_test(test_4), cmocka_unit_test(test_5),
 #endif
       cmocka_unit_test(test_6),

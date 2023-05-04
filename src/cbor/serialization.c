@@ -38,6 +38,7 @@ size_t cbor_serialize(const cbor_item_t *item, unsigned char *buffer,
     case CBOR_TYPE_FLOAT_CTRL:
       return cbor_serialize_float_ctrl(item, buffer, buffer_size);
   }
+  return 0;
 }
 
 /** Largest integer that can be encoded as embedded in the item leading byte. */
@@ -149,6 +150,7 @@ size_t cbor_serialized_size(const cbor_item_t *item) {
           return 9;
       }
   }
+  return 0;
 }
 
 size_t cbor_serialize_alloc(const cbor_item_t *item, unsigned char **buffer,
@@ -185,6 +187,7 @@ size_t cbor_serialize_uint(const cbor_item_t *item, unsigned char *buffer,
     case CBOR_INT_64:
       return cbor_encode_uint64(cbor_get_uint64(item), buffer, buffer_size);
   }
+  return 0;
 }
 
 size_t cbor_serialize_negint(const cbor_item_t *item, unsigned char *buffer,
@@ -201,6 +204,7 @@ size_t cbor_serialize_negint(const cbor_item_t *item, unsigned char *buffer,
     case CBOR_INT_64:
       return cbor_encode_negint64(cbor_get_uint64(item), buffer, buffer_size);
   }
+  return 0;
 }
 
 size_t cbor_serialize_bytestring(const cbor_item_t *item, unsigned char *buffer,
@@ -365,4 +369,5 @@ size_t cbor_serialize_float_ctrl(const cbor_item_t *item, unsigned char *buffer,
       return cbor_encode_double(cbor_float_get_float8(item), buffer,
                                 buffer_size);
   }
+  return 0;
 }

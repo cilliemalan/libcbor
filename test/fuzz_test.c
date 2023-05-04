@@ -9,7 +9,7 @@
 #include "assertions.h"
 #include "cbor.h"
 
-#ifdef HUGE_FUZZ
+#ifdef CBOR_HUGE_FUZZ
 #define ROUNDS 65536ULL
 #define MAXLEN 131072ULL
 #else
@@ -17,7 +17,7 @@
 #define MAXLEN 2048ULL
 #endif
 
-#ifdef PRINT_FUZZ
+#ifdef CBOR_PRINT_FUZZ
 static void printmem(const unsigned char *ptr, size_t length) {
   for (size_t i = 0; i < length; i++) printf("%02X", ptr[i]);
   printf("\n");
@@ -43,7 +43,7 @@ static void run_round(void) {
     data[i] = rand() % 0xFF;
   }
 
-#ifdef PRINT_FUZZ
+#ifdef CBOR_PRINT_FUZZ
   printmem(data, length);
 #endif
 

@@ -20,7 +20,7 @@ message(STATUS "CMocka vars: ${CMOCKA_LIBRARIES} ${CMOCKA_INCLUDE_DIR}")
 
 find_library(MATH_LIBRARY m)
 
-CHECK_INCLUDE_FILE("execinfo.h" HAS_EXECINFO)
+# CHECK_INCLUDE_FILE("execinfo.h" HAS_EXECINFO)
 
 foreach (TEST ${TESTS})
     string(REGEX REPLACE ".*/([^/]+).c" "\\1" NAME ${TEST})
@@ -38,7 +38,6 @@ foreach (TEST ${TESTS})
     ADD_TEST(ctest_run_${NAME} ${NAME})
     SET_TESTS_PROPERTIES(ctest_run_${NAME}
             PROPERTIES DEPENDS ctest_build_test_${NAME})
-    add_dependencies(coverage ${NAME})
 endforeach (TEST)
 
 add_executable(cpp_linkage_test cpp_linkage_test.cpp)

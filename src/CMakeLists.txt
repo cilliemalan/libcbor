@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.20)
+
 set(SOURCES cbor.c allocators.c cbor/streaming.c cbor/internal/encoders.c cbor/internal/builder_callbacks.c cbor/internal/loaders.c cbor/internal/memory_utils.c cbor/internal/stack.c cbor/internal/unicode.c cbor/encoding.c cbor/serialization.c cbor/arrays.c cbor/common.c cbor/floats_ctrls.c cbor/bytestrings.c cbor/callbacks.c cbor/strings.c cbor/maps.c cbor/tags.c cbor/ints.c)
 
 include(GNUInstallDirs)
@@ -9,8 +11,17 @@ if (NOT DEFINED CMAKE_MACOSX_RPATH)
 	set(CMAKE_MACOSX_RPATH 0)
 endif()
 
-add_library(cbor ${SOURCES})
-target_include_directories(cbor PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
+
+add_library(cbor STATIC ${SOURCES})
+target_include_directories(cbor PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+
+# We want to generate configuration.h from the template and make it so that it is accessible using the same
+# path during both library build and installed header use, without littering the source dir.
+# Using cbor/configuration.h in the build dir works b/c headers will be installed to <prefix>/cbor
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cbor/configuration.h.in ${CMAKE_CURRENT_BINARY_DIR}/cbor/configuration.h)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cbor/configuration.h DESTINATION include/cbor)
+
 
 # Explicitly link math.h if necessary
 check_function_exists(ldexp LDEXP_AVAILABLE)
@@ -20,7 +31,6 @@ endif()
 
 include(GenerateExportHeader)
 generate_export_header(cbor EXPORT_FILE_NAME ${CMAKE_CURRENT_BINARY_DIR}/cbor/cbor_export.h)
-target_include_directories(cbor PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cbor/cbor_export.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cbor)
 
 if (NOT ${CBOR_VERSION_MAJOR} EQUAL 0)

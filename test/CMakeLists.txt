@@ -1,5 +1,19 @@
 file(GLOB TESTS "*_test.c")
 
+
+if(CBOR_HUGE_FUZZ)
+    add_definitions(-DCBOR_HUGE_FUZZ)
+endif(CBOR_HUGE_FUZZ)
+
+if(CBOR_SANE_MALLOC)
+    add_definitions(-DCBOR_SANE_MALLOC)
+endif(CBOR_SANE_MALLOC)
+
+if(CBOR_PRINT_FUZZ)
+    add_definitions(-DCBOR_PRINT_FUZZ)
+endif(CBOR_PRINT_FUZZ)
+
+
 find_package(CMocka REQUIRED)
 
 message(STATUS "CMocka vars: ${CMOCKA_LIBRARIES} ${CMOCKA_INCLUDE_DIR}")

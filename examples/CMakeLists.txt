@@ -20,11 +20,11 @@ find_package(CJSON)
 
 if(CJSON_FOUND)
     add_executable(cjson2cbor cjson2cbor.c)
-    target_include_directories(cjson2cbor PUBLIC ${CJSON_INCLUDE_DIRS})
+    # target_include_directories(cjson2cbor PUBLIC ${CJSON_INCLUDE_DIRS})
     target_link_libraries(cjson2cbor cbor ${CJSON_LIBRARY})
 
     add_executable(cbor2cjson cbor2cjson.c)
-    target_include_directories(cbor2cjson PUBLIC ${CJSON_INCLUDE_DIRS})
+    # target_include_directories(cbor2cjson PUBLIC ${CJSON_INCLUDE_DIRS})
     target_link_libraries(cbor2cjson cbor ${CJSON_LIBRARY})
 endif()
 

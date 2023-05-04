@@ -13,8 +13,8 @@ target_link_libraries(streaming_array cbor)
 add_executable(sort sort.c)
 target_link_libraries(sort cbor)
 
-add_executable(hello hello.c)
-target_link_libraries(hello cbor)
+add_executable(hellocbor hello.c)
+target_link_libraries(hellocbor cbor)
 
 find_package(CJSON)
 

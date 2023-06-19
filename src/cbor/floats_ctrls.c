@@ -9,6 +9,11 @@
 #include <math.h>
 #include "assert.h"
 
+#ifndef NAN
+static const union _cbor_float_helper __nan32 = {.as_uint = 0xFFFFFFFF};
+#define NAN (__nan32.as_float)
+#endif
+
 cbor_float_width cbor_float_get_width(const cbor_item_t *item) {
   CBOR_ASSERT(cbor_isa_float_ctrl(item));
   return item->metadata.float_ctrl_metadata.width;

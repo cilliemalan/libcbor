@@ -18,6 +18,8 @@ static double _ldexp_nofpu(double a, int b) {
   return 0;
 }
 
+#endif
+
 #ifndef INFINITY
 static const union _cbor_float_helper __infinity32 = {.as_uint = 0x7F800000};
 #define INFINITY (__infinity32.as_float)
@@ -28,7 +30,6 @@ static const union _cbor_float_helper __nan32 = {.as_uint = 0xFFFFFFFF};
 #define NAN (__nan32.as_float)
 #endif
 
-#endif
 
 uint8_t _cbor_load_uint8(cbor_data source) { return (uint8_t)*source; }
 
